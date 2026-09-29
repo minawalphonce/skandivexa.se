@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <!-- Skandivexa Konsult AB Emblem: Compass + Gear + S-Trace Arrow -->
+  <g fill="#164E87">
+    <!-- North Compass Point -->
+    <polygon points="120,8 110,50 130,50" />
+    <!-- South Compass Point -->
+    <polygon points="120,232 110,190 130,190" />
+    <!-- West Compass Point -->
+    <polygon points="8,120 50,110 50,130" />
+    <!-- East Compass Point -->
+    <polygon points="232,120 190,110 190,130" />
+
+    <!-- Gear Teeth (Circular distribution) -->
+    <!-- Top-Left Quadrant Teeth -->
+    <polygon points="82,45 96,40 102,56 89,61" />
+    <polygon points="56,66 69,56 79,70 66,79" />
+    <polygon points="40,96 46,82 62,88 56,102" />
+    <!-- Bottom-Left Quadrant Teeth -->
+    <polygon points="40,144 56,138 62,152 46,158" />
+    <polygon points="56,174 66,161 80,170 69,184" />
+    <polygon points="82,195 89,179 103,184 96,200" />
+    <!-- Bottom-Right Quadrant Teeth -->
+    <polygon points="144,200 137,184 151,179 158,195" />
+    <polygon points="174,184 160,170 171,161 184,174" />
+    <polygon points="200,144 184,138 190,124 204,130" />
+    <!-- Top-Right Quadrant Teeth -->
+    <polygon points="200,96 184,102 178,88 194,82" />
+    <polygon points="174,56 184,66 171,79 161,70" />
+    <polygon points="144,40 158,45 151,61 137,56" />
+
+    <!-- Outer Gear Ring -->
+    <path d="M 120 52 A 68 68 0 1 0 120 188 A 68 68 0 1 0 120 52 Z M 120 68 A 52 52 0 1 1 120 172 A 52 52 0 1 1 120 68 Z" fill-rule="evenodd" />
+
+    <!-- Circular Terminal Node at Bottom-Left (Circuit contact) -->
+    <circle cx="68" cy="172" r="15" />
+    <circle cx="68" cy="172" r="7" fill="#FFFFFF" />
+
+    <!-- The Bold "S" Circuit Pathway with Upper Arrow -->
+    <path d="M 78 164 L 98 140 C 112 125 116 122 130 122 C 146 122 154 114 154 100 C 154 86 142 78 126 78 C 108 78 98 90 98 96 L 78 96 C 78 78 96 60 126 60 C 156 60 174 76 174 100 C 174 122 158 138 140 140 C 124 142 118 146 106 158 L 92 176 Z" />
+
+    <!-- Upper-Right Forward / Growth Arrowhead -->
+    <polygon points="160,42 196,46 192,82 178,74 176,58 160,60" />
+  </g>
+</svg>

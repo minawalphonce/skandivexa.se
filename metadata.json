@@ -1,0 +1,8 @@
+{
+  "name": "Remix Norrgrund Gruppen AB",
+  "description": "Officiell flerspråkig webbplats för Skandivexa konsult AB – Bygg-, underhålls- och renoveringsverksamhet, teknisk konsultation, VVS, ventilation, måleri och fastighetsdrift i Sverige.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
