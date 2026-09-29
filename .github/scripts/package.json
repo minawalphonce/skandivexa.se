@@ -1,0 +1,8 @@
+{
+  "name": "deploy-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "ssh2-sftp-client": "^11.0.0"
+  }
+}
