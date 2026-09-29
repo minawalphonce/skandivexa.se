@@ -92,13 +92,13 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto bg-[#081626]/75 backdrop-blur-xs">
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-[#D4E2F0] overflow-hidden my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto bg-[#05172C]/80 backdrop-blur-xs">
+      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-[#E8D4C1] overflow-hidden my-8">
         
         {/* Modal Header */}
-        <div className="bg-[#0C2340] text-white p-5 sm:p-6 flex items-start justify-between">
+        <div className="bg-[#05172C] text-white p-5 sm:p-6 flex items-start justify-between">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8] block mb-1">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#D97D30] block mb-1">
               Skandivexa konsult AB • {lang === 'sv' ? 'Offertförfrågan' : 'Quote Request'}
             </span>
             <h3 className="text-xl sm:text-2xl font-bold font-display text-white">
@@ -125,7 +125,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               <CheckCircle className="w-8 h-8" />
             </div>
 
-            <h4 className="text-2xl font-bold font-display text-[#0C2340] mb-2">
+            <h4 className="text-2xl font-bold font-display text-[#05172C] mb-2">
               {t.successTitle[lang]}
             </h4>
 
@@ -133,21 +133,21 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               {t.successMsg[lang]}
             </p>
 
-            <div className="p-4 rounded-xl bg-[#F0F6FB] border border-[#D4E2F0] max-w-md mx-auto mb-6 text-left text-xs space-y-2">
-              <div className="flex justify-between border-b border-[#D4E2F0] pb-2">
+            <div className="p-4 rounded-xl bg-[#FFF7ED] border border-[#E8D4C1] max-w-md mx-auto mb-6 text-left text-xs space-y-2">
+              <div className="flex justify-between border-b border-[#E8D4C1] pb-2">
                 <span className="text-[#64748B]">{lang === 'sv' ? 'Referensnummer:' : 'Reference ID:'}</span>
-                <span className="font-bold text-[#164E87]">{submittedRef}</span>
+                <span className="font-bold text-[#C26E26]">{submittedRef}</span>
               </div>
-              <div className="flex justify-between border-b border-[#D4E2F0] pb-2">
+              <div className="flex justify-between border-b border-[#E8D4C1] pb-2">
                 <span className="text-[#64748B]">{lang === 'sv' ? 'Kontaktperson:' : 'Contact:'}</span>
-                <span className="font-semibold text-[#0C2340]">{formData.name}</span>
+                <span className="font-semibold text-[#05172C]">{formData.name}</span>
               </div>
-              <div className="flex justify-between border-b border-[#D4E2F0] pb-2">
+              <div className="flex justify-between border-b border-[#E8D4C1] pb-2">
                 <span className="text-[#64748B]">{lang === 'sv' ? 'E-post & Telefon:' : 'Email & Phone:'}</span>
-                <span className="font-medium text-[#0C2340]">{formData.email} • {formData.phone}</span>
+                <span className="font-medium text-[#05172C]">{formData.email} • {formData.phone}</span>
               </div>
               {formData.wantsRotDeduction && (
-                <div className="flex justify-between text-[#164E87] font-semibold">
+                <div className="flex justify-between text-[#C26E26] font-bold">
                   <span>{lang === 'sv' ? 'ROT-avdrag (30%):' : 'ROT Deduction:'}</span>
                   <span>{lang === 'sv' ? 'Aktiverat' : 'Requested'}</span>
                 </div>
@@ -157,16 +157,16 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             <div className="flex flex-wrap justify-center gap-3">
               <a
                 href={`mailto:info@skandinavexa.se?subject=Offertförfrågan [${submittedRef}] - ${formData.name}&body=Hej Skandivexa konsult AB,%0D%0A%0D%0AJag har skickat in en offertförfrågan via hemsidan med referens: ${submittedRef}.%0D%0A%0D%0AProjekt: ${formData.projectDescription}%0D%0AStad: ${formData.city}%0D%0ATelefon: ${formData.phone}`}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#164E87] text-white text-xs font-semibold hover:bg-[#123E6E] transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#C26E26] text-white text-xs font-bold hover:bg-[#A85B1B] transition-colors shadow-xs"
               >
-                <Mail className="w-3.5 h-3.5 text-[#38BDF8]" />
+                <Mail className="w-3.5 h-3.5 text-white" />
                 <span>{lang === 'sv' ? 'Skicka bekräftelsemail' : 'Send copy via Email'}</span>
               </a>
 
               <button
                 type="button"
                 onClick={resetAndClose}
-                className="px-5 py-2 rounded-lg bg-[#F0F6FB] text-[#0C2340] border border-[#D4E2F0] hover:bg-[#E4EEF8] text-xs font-semibold transition-colors"
+                className="px-5 py-2 rounded-lg bg-[#F8FAFC] text-[#05172C] border border-[#CBD5E1] hover:bg-[#FFF7ED] text-xs font-semibold transition-colors"
               >
                 {t.close[lang]}
               </button>
@@ -178,7 +178,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             
             {/* 1. Client Type Selector */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#0C2340] mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#05172C] mb-2">
                 {t.clientTypeLabel[lang]}
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -195,8 +195,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     }}
                     className={`px-3 py-2 rounded-lg text-xs font-semibold border transition-all text-center ${
                       formData.clientType === type
-                        ? 'bg-[#164E87] text-white border-[#164E87] shadow-xs'
-                        : 'bg-[#F8FAFC] text-[#475569] border-[#CBD5E1] hover:bg-[#F0F6FB] hover:text-[#164E87]'
+                        ? 'bg-[#C26E26] text-white border-[#C26E26] shadow-xs'
+                        : 'bg-[#F8FAFC] text-[#475569] border-[#CBD5E1] hover:bg-[#FFF7ED] hover:text-[#C26E26]'
                     }`}
                   >
                     {t.types[type][lang]}
@@ -207,7 +207,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
             {/* 2. Services Selection */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#0C2340] mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#05172C] mb-2">
                 {t.servicesLabel[lang]}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -220,12 +220,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                       onClick={() => handleServiceToggle(s.title[lang])}
                       className={`flex items-start gap-2 p-2.5 rounded-lg text-left text-xs border transition-all ${
                         isSelected
-                          ? 'bg-[#F0F6FB] border-[#164E87] text-[#164E87] font-semibold'
+                          ? 'bg-[#FFF7ED] border-[#C26E26] text-[#A85B1B] font-semibold'
                           : 'bg-white border-[#E2E8F0] text-[#475569] hover:bg-[#F8FAFC]'
                       }`}
                     >
                       <span className={`w-4 h-4 rounded mt-0.5 flex items-center justify-center shrink-0 border ${
-                        isSelected ? 'bg-[#164E87] border-[#164E87] text-white' : 'border-[#CBD5E1]'
+                        isSelected ? 'bg-[#C26E26] border-[#C26E26] text-white' : 'border-[#CBD5E1]'
                       }`}>
                         {isSelected && '✓'}
                       </span>
@@ -239,7 +239,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             {/* 3. Contact Inputs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                <label className="block text-xs font-semibold text-[#05172C] mb-1">
                   {t.name[lang]} *
                 </label>
                 <input
@@ -248,12 +248,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="Förnamn Efternamn"
-                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                <label className="block text-xs font-semibold text-[#05172C] mb-1">
                   {t.phone[lang]} *
                 </label>
                 <input
@@ -262,12 +262,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="070-123 45 67"
-                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                <label className="block text-xs font-semibold text-[#05172C] mb-1">
                   {t.email[lang]} *
                 </label>
                 <input
@@ -276,12 +276,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="namn@epost.se"
-                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                <label className="block text-xs font-semibold text-[#05172C] mb-1">
                   {t.city[lang]} *
                 </label>
                 <input
@@ -290,7 +290,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.city}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                   placeholder="t.ex. Stockholm, Nacka, Uppsala"
-                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none transition-colors"
                 />
               </div>
             </div>
@@ -298,7 +298,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             {/* If business/BRF, show optional company field */}
             {formData.clientType !== 'private' && (
               <div>
-                <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                <label className="block text-xs font-semibold text-[#05172C] mb-1">
                   {t.company[lang]}
                 </label>
                 <input
@@ -306,14 +306,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.companyName}
                   onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                   placeholder="Företagsnamn / BRF Namn"
-                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none transition-colors"
                 />
               </div>
             )}
 
             {/* 4. Project Description */}
             <div>
-              <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+              <label className="block text-xs font-semibold text-[#05172C] mb-1">
                 {t.description[lang]} *
               </label>
               <textarea
@@ -326,32 +326,32 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     ? 'Beskriv arbetet, fastighetens ålder, ungefärlig yta eller önskade åtgärder...'
                     : 'Describe the project scope, building age, approximate square meters, or desired measures...'
                 }
-                className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none resize-none transition-colors"
+                className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none resize-none transition-colors"
               />
             </div>
 
             {/* 5. ROT-avdrag checkbox for private customers */}
             {formData.clientType === 'private' && (
-              <div className="p-3.5 rounded-xl bg-[#F0F6FB] border border-[#D4E2F0] flex items-center justify-between">
+              <div className="p-3.5 rounded-xl bg-[#FFF7ED] border border-[#E8D4C1] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     id="wants-rot-check"
                     checked={formData.wantsRotDeduction}
                     onChange={(e) => setFormData({ ...formData, wantsRotDeduction: e.target.checked })}
-                    className="w-4 h-4 rounded border-gray-300 text-[#164E87] focus:ring-[#164E87]"
+                    className="w-4 h-4 rounded border-gray-300 text-[#C26E26] focus:ring-[#C26E26]"
                   />
-                  <label htmlFor="wants-rot-check" className="text-xs font-semibold text-[#0C2340] cursor-pointer">
+                  <label htmlFor="wants-rot-check" className="text-xs font-bold text-[#05172C] cursor-pointer">
                     {t.rotQuestion[lang]} (30% på arbetskostnaden)
                   </label>
                 </div>
-                <span className="text-[11px] text-[#164E87] font-bold">Max 50 000 kr/person</span>
+                <span className="text-[11px] text-[#C26E26] font-bold">Max 50 000 kr/person</span>
               </div>
             )}
 
             {/* 6. Timeframe */}
             <div>
-              <label className="block text-xs font-semibold text-[#0F233A] mb-1.5">
+              <label className="block text-xs font-semibold text-[#05172C] mb-1.5">
                 {t.timeframeLabel[lang]}
               </label>
               <select
@@ -362,7 +362,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                     estimatedTimeframe: e.target.value as QuoteRequest['estimatedTimeframe'],
                   })
                 }
-                className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-xs outline-none transition-colors"
+                className="w-full px-3 py-2 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-xs outline-none transition-colors"
               >
                 <option value="urgent">{t.timeframes['urgent'][lang]}</option>
                 <option value="1-3months">{t.timeframes['1-3months'][lang]}</option>
@@ -375,9 +375,9 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-lg bg-[#164E87] hover:bg-[#123E6E] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                className="w-full py-3.5 rounded-lg bg-[#C26E26] hover:bg-[#A85B1B] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer"
               >
-                <Send className="w-4 h-4 text-[#38BDF8]" />
+                <Send className="w-4 h-4 text-white" />
                 <span>{t.submitButton[lang]}</span>
               </button>
               <p className="text-[11px] text-center text-[#64748B] mt-2">

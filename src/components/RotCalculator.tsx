@@ -30,13 +30,13 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
         <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-[#E2E8F0] shadow-lg overflow-hidden">
           
           {/* Header Bar */}
-          <div className="bg-[#0C2340] text-white p-6 sm:p-8">
+          <div className="bg-[#05172C] text-white p-6 sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8] bg-white/10 px-3 py-1 rounded-full">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#D97D30] bg-white/10 px-3 py-1 rounded-full border border-white/10">
                 {t.badge[lang]}
               </span>
               <span className="text-xs text-[#CBD5E1] flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#38BDF8]" />
+                <CheckCircle className="w-4 h-4 text-[#D97D30]" />
                 {lang === 'sv' ? 'Vi sköter all kontakt med Skatteverket' : 'We handle all Skatteverket paperwork'}
               </span>
             </div>
@@ -53,9 +53,9 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
           <div className="p-6 sm:p-8">
             
             {/* Number of owners toggle */}
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-[#F0F6FB] border border-[#D4E2F0]">
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-[#FFF7ED] border border-[#E8D4C1]">
               <div className="text-sm">
-                <span className="font-semibold text-[#0C2340] block">
+                <span className="font-bold text-[#05172C] block">
                   {lang === 'sv' ? 'Hur många delägare står på lagfarten?' : 'How many co-owners are on the title deed?'}
                 </span>
                 <span className="text-xs text-[#64748B]">
@@ -64,14 +64,14 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
                     : '1 owner = max 50,000 SEK • 2 owners = max 100,000 SEK'}
                 </span>
               </div>
-              <div className="inline-flex rounded-lg p-1 bg-[#E2EAF2]">
+              <div className="inline-flex rounded-lg p-1 bg-white border border-[#E8D4C1]">
                 <button
                   type="button"
                   onClick={() => setNumOwners(1)}
                   className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
                     numOwners === 1
-                      ? 'bg-[#164E87] text-white shadow-xs'
-                      : 'text-[#0C2340] hover:text-[#164E87]'
+                      ? 'bg-[#C26E26] text-white shadow-xs'
+                      : 'text-[#05172C] hover:text-[#C26E26]'
                   }`}
                 >
                   1 {lang === 'sv' ? 'person' : 'person'}
@@ -81,8 +81,8 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
                   onClick={() => setNumOwners(2)}
                   className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
                     numOwners === 2
-                      ? 'bg-[#164E87] text-white shadow-xs'
-                      : 'text-[#0C2340] hover:text-[#164E87]'
+                      ? 'bg-[#C26E26] text-white shadow-xs'
+                      : 'text-[#05172C] hover:text-[#C26E26]'
                   }`}
                 >
                   2 {lang === 'sv' ? 'personer' : 'persons'}
@@ -93,10 +93,10 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
             {/* Slider */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-3">
-                <label htmlFor="rot-labor-slider" className="text-sm font-semibold text-[#0C2340]">
+                <label htmlFor="rot-labor-slider" className="text-sm font-bold text-[#05172C]">
                   {t.sliderLabel[lang]}
                 </label>
-                <span className="text-xl sm:text-2xl font-bold font-display text-[#164E87] tabular-nums">
+                <span className="text-xl sm:text-2xl font-extrabold font-display text-[#C26E26] tabular-nums">
                   {formatSEK(laborCost)}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
                 step="5000"
                 value={laborCost}
                 onChange={(e) => setLaborCost(Number(e.target.value))}
-                className="w-full h-2.5 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer accent-[#164E87]"
+                className="w-full h-2.5 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer accent-[#C26E26]"
               />
 
               <div className="flex justify-between text-[11px] text-[#64748B] mt-2 tabular-nums">
@@ -122,11 +122,11 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
 
             {/* Results Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div className="p-5 rounded-xl bg-[#F0F6FB] border border-[#D4E2F0]">
-                <span className="text-xs font-semibold text-[#64748B] block mb-1">
+              <div className="p-5 rounded-xl bg-[#FFF7ED] border border-[#E8D4C1]">
+                <span className="text-xs font-bold text-[#A85B1B] block mb-1">
                   {t.rotDeductionLabel[lang]}
                 </span>
-                <span className="text-2xl sm:text-3xl font-extrabold text-[#164E87] font-display block tabular-nums">
+                <span className="text-2xl sm:text-3xl font-extrabold text-[#C26E26] font-display block tabular-nums">
                   -{formatSEK(calculatedRot)}
                 </span>
                 <span className="text-[11px] text-[#64748B] mt-1 block">
@@ -136,7 +136,7 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
                 </span>
               </div>
 
-              <div className="p-5 rounded-xl bg-[#0C2340] text-white">
+              <div className="p-5 rounded-xl bg-[#05172C] text-white">
                 <span className="text-xs font-semibold text-[#CBD5E1] block mb-1">
                   {t.youPayLabel[lang]}
                 </span>
@@ -152,8 +152,8 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
             </div>
 
             {/* Tip note */}
-            <div className="flex items-start gap-2.5 p-3.5 rounded-lg bg-[#F0F6FB] border border-[#D4E2F0] text-xs text-[#334155] mb-6">
-              <Info className="w-4 h-4 text-[#164E87] shrink-0 mt-0.5" />
+            <div className="flex items-start gap-2.5 p-3.5 rounded-lg bg-[#FFF7ED] border border-[#E8D4C1] text-xs text-[#5D3A1A] mb-6">
+              <Info className="w-4 h-4 text-[#C26E26] shrink-0 mt-0.5" />
               <span>{t.infoText[lang]}</span>
             </div>
 
@@ -162,10 +162,10 @@ export const RotCalculator: React.FC<RotCalculatorProps> = ({ lang, onApplyRotIn
               <button
                 type="button"
                 onClick={() => onApplyRotInQuote(laborCost)}
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg bg-[#164E87] hover:bg-[#123E6E] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg bg-[#C26E26] hover:bg-[#A85B1B] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer"
               >
                 <span>{t.cta[lang]}</span>
-                <ArrowRight className="w-4 h-4 text-[#38BDF8]" />
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
 

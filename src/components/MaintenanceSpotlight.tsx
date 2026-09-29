@@ -13,10 +13,10 @@ export const MaintenanceSpotlight: React.FC<MaintenanceSpotlightProps> = ({ lang
   const t = UI_TEXT.maintenanceSpotlight;
 
   return (
-    <section id="underhall" className="py-20 md:py-28 bg-[#0B1F36] text-white relative overflow-hidden">
-      {/* Background Subtle Nordic Glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#164E87]/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#0284C7]/15 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+    <section id="underhall" className="py-20 md:py-28 bg-[#05172C] text-white relative overflow-hidden">
+      {/* Background Subtle Nordic Warm Copper & Deep Blue Glows */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#C26E26]/15 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#163860]/40 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -26,10 +26,10 @@ export const MaintenanceSpotlight: React.FC<MaintenanceSpotlightProps> = ({ lang
           <div className="lg:col-span-5 order-2 lg:order-1">
             <div className="relative">
               
-              {/* Outer Blue Border Accent */}
-              <div className="absolute -inset-2 rounded-2xl border border-[#38BDF8]/30 -z-10 translate-x-2 translate-y-2" />
+              {/* Outer Warm Copper Border Accent */}
+              <div className="absolute -inset-2 rounded-2xl border border-[#C26E26]/40 -z-10 translate-x-2 translate-y-2" />
               
-              <div className="rounded-xl overflow-hidden border border-white/15 shadow-2xl bg-[#081626]">
+              <div className="rounded-xl overflow-hidden border border-white/15 shadow-2xl bg-[#030E1C]">
                 <img
                   src={maintenanceImg}
                   alt="Skandivexa konsult AB – Planerat fastighetsunderhåll & Teknisk service"
@@ -39,16 +39,16 @@ export const MaintenanceSpotlight: React.FC<MaintenanceSpotlightProps> = ({ lang
               </div>
 
               {/* Maintenance Floating Badge */}
-              <div className="absolute -bottom-5 -right-3 sm:-right-5 bg-white text-[#0C2340] p-4 rounded-xl shadow-xl border border-[#D4E2F0] max-w-xs">
+              <div className="absolute -bottom-5 -right-3 sm:-right-5 bg-white text-[#05172C] p-4 rounded-xl shadow-xl border border-[#E8D4C1] max-w-xs">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-lg bg-[#164E87] text-white">
+                  <div className="p-2.5 rounded-lg bg-[#05172C] text-[#D97D30]">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#164E87] block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#C26E26] block">
                       Underhåll & Drift
                     </span>
-                    <span className="text-xs font-bold block leading-tight">
+                    <span className="text-xs font-bold block leading-tight text-[#05172C]">
                       {lang === 'sv' ? 'Minskar driftskostnader & säkrar fastighetsvärde' : 'Reduces operating costs & safeguards property value'}
                     </span>
                   </div>
@@ -61,7 +61,7 @@ export const MaintenanceSpotlight: React.FC<MaintenanceSpotlightProps> = ({ lang
           {/* Right Column: Narrative & Pillars */}
           <div className="lg:col-span-7 order-1 lg:order-2">
             
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-[#38BDF8]/40 text-[#38BDF8] text-xs font-semibold uppercase tracking-wider mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-[#C26E26]/50 text-[#D97D30] text-xs font-semibold uppercase tracking-wider mb-4">
               <Wrench className="w-3.5 h-3.5" />
               <span>{t.eyebrow[lang]}</span>
             </div>
@@ -82,8 +82,8 @@ export const MaintenanceSpotlight: React.FC<MaintenanceSpotlightProps> = ({ lang
             {/* 3 Maintenance Pillars */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-white/10 mb-8">
               {t.points.map((point, index) => (
-                <div key={index} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#38BDF8]/40 transition-colors">
-                  <span className="text-xs font-bold text-[#38BDF8] block mb-1">
+                <div key={index} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#C26E26]/60 transition-colors group">
+                  <span className="text-xs font-bold text-[#D97D30] block mb-1 group-hover:text-white transition-colors">
                     {point.title[lang]}
                   </span>
                   <p className="text-xs text-[#CBD5E1] leading-normal">
@@ -104,7 +104,7 @@ export const MaintenanceSpotlight: React.FC<MaintenanceSpotlightProps> = ({ lang
                       : 'Planned Facility Maintenance & Technical Services'
                   )
                 }
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#164E87] hover:bg-[#1D70B8] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer border border-[#38BDF8]/30"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-[#C26E26] hover:bg-[#A85B1B] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer border border-[#C26E26]"
               >
                 <span>{lang === 'sv' ? 'Begär offert för underhållsavtal' : 'Request Maintenance Proposal'}</span>
                 <ArrowRight className="w-4 h-4" />

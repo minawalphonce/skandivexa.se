@@ -34,10 +34,10 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ lang, onOpenQu
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#164E87] block mb-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#C26E26] block mb-2">
               {t.eyebrow[lang]}
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0C2340] tracking-tight font-display">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#05172C] tracking-tight font-display">
               {t.title[lang]}
             </h2>
             <p className="text-base text-[#475569] mt-3 leading-relaxed">
@@ -54,8 +54,8 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ lang, onOpenQu
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   selectedCategory === cat.id
-                    ? 'bg-[#164E87] text-white shadow-xs'
-                    : 'bg-white text-[#475569] border border-[#CBD5E1] hover:bg-[#F0F6FB] hover:text-[#164E87]'
+                    ? 'bg-[#05172C] text-white shadow-xs'
+                    : 'bg-white text-[#475569] border border-[#CBD5E1] hover:bg-[#FFF7ED] hover:text-[#C26E26] hover:border-[#E8D4C1]'
                 }`}
               >
                 {cat.label[lang]}
@@ -69,22 +69,22 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ lang, onOpenQu
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="bg-white rounded-2xl overflow-hidden border border-[#E2E8F0] shadow-xs hover:shadow-xl hover:border-[#164E87] transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white rounded-2xl overflow-hidden border border-[#E2E8F0] shadow-xs hover:shadow-xl hover:border-[#C26E26] transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 {/* Image & Badges */}
-                <div className="relative h-64 sm:h-72 overflow-hidden bg-[#081626]">
+                <div className="relative h-64 sm:h-72 overflow-hidden bg-[#05172C]">
                   <img
                     src={project.image}
                     alt={project.title[lang]}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#081626]/80 via-transparent to-black/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05172C]/85 via-transparent to-black/20" />
                   
                   {/* Top Floating Badge */}
                   <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-bold text-[#164E87] border border-white/40 shadow-xs">
+                    <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-bold text-[#A85B1B] border border-white/40 shadow-xs">
                       {project.category[lang]}
                     </span>
                   </div>
@@ -92,11 +92,11 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ lang, onOpenQu
                   {/* Bottom Stats Floating in Image */}
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs">
                     <span className="flex items-center gap-1 font-medium">
-                      <MapPin className="w-3.5 h-3.5 text-[#38BDF8]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#D97D30]" />
                       {project.location}
                     </span>
                     <span className="flex items-center gap-1 font-medium bg-black/40 px-2 py-0.5 rounded">
-                      <Calendar className="w-3 h-3 text-[#38BDF8]" />
+                      <Calendar className="w-3 h-3 text-[#D97D30]" />
                       {project.year}
                     </span>
                   </div>
@@ -104,7 +104,7 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ lang, onOpenQu
 
                 {/* Card Body */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold font-display text-[#0C2340] mb-3 group-hover:text-[#164E87] transition-colors leading-snug">
+                  <h3 className="text-xl font-bold font-display text-[#05172C] mb-3 group-hover:text-[#C26E26] transition-colors leading-snug">
                     {project.title[lang]}
                   </h3>
                   <p className="text-sm text-[#475569] leading-relaxed mb-6">
@@ -113,13 +113,13 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ lang, onOpenQu
 
                   {/* Project Metrics / Stats */}
                   {project.stats && (
-                    <div className="grid grid-cols-3 gap-2 py-3 px-4 rounded-xl bg-[#F0F6FB] border border-[#D4E2F0] text-center">
+                    <div className="grid grid-cols-3 gap-2 py-3 px-4 rounded-xl bg-[#FFF7ED] border border-[#E8D4C1] text-center">
                       {project.stats.map((stat, idx) => (
                         <div key={idx} className="flex flex-col">
-                          <span className="text-[11px] text-[#64748B] font-medium">
+                          <span className="text-[11px] text-[#A85B1B] font-semibold">
                             {stat.label[lang]}
                           </span>
-                          <span className="text-xs sm:text-sm font-bold text-[#0C2340] tabular-nums">
+                          <span className="text-xs sm:text-sm font-bold text-[#05172C] tabular-nums">
                             {stat.value}
                           </span>
                         </div>
@@ -134,7 +134,7 @@ export const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ lang, onOpenQu
                 <button
                   type="button"
                   onClick={() => onOpenQuote(project.title[lang])}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-[#F0F6FB] hover:bg-[#164E87] text-[#164E87] hover:text-white border border-[#D4E2F0] hover:border-[#164E87] text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-[#FFF7ED] hover:bg-[#C26E26] text-[#C26E26] hover:text-white border border-[#E8D4C1] hover:border-[#C26E26] text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-2xs"
                 >
                   <span>{lang === 'sv' ? 'Planera liknande projekt' : 'Plan a Similar Project'}</span>
                   <ArrowUpRight className="w-4 h-4" />

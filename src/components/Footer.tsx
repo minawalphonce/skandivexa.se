@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
   const t = UI_TEXT.footer;
 
   return (
-    <footer className="bg-[#0B1F36] text-white pt-16 pb-12 border-t border-[#132C4A]">
+    <footer className="bg-[#05172C] text-white pt-16 pb-12 border-t border-[#0C2442]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main 4-Column Footer Grid */}
@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
               <button
                 type="button"
                 onClick={onOpenQuote}
-                className="px-4 py-2.5 rounded-lg bg-[#164E87] hover:bg-[#1D70B8] text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-[#38BDF8]/40 shadow-xs"
+                className="px-4 py-2.5 rounded-lg bg-[#C26E26] hover:bg-[#A85B1B] text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-[#C26E26] shadow-xs"
               >
                 {lang === 'sv' ? 'Begär kostnadsfri offert' : 'Request Free Quote'}
               </button>
@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
                   type="button"
                   onClick={() => onLanguageChange('sv')}
                   className={`px-2.5 py-0.5 rounded-full font-bold transition-colors ${
-                    lang === 'sv' ? 'bg-[#164E87] text-white' : 'text-white/70 hover:text-white'
+                    lang === 'sv' ? 'bg-[#C26E26] text-white' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   Svenska
@@ -53,7 +53,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
                   type="button"
                   onClick={() => onLanguageChange('en')}
                   className={`px-2.5 py-0.5 rounded-full font-bold transition-colors ${
-                    lang === 'en' ? 'bg-[#164E87] text-white' : 'text-white/70 hover:text-white'
+                    lang === 'en' ? 'bg-[#C26E26] text-white' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   English
@@ -64,37 +64,37 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
 
           {/* Col 2: Verksamhetsområden (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#38BDF8]">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D97D30]">
               {lang === 'sv' ? 'Verksamhetsområden' : 'Core Divisions'}
             </h4>
             <ul className="space-y-2 text-xs text-[#CBD5E1]">
               <li>
-                <a href="#tjanster" className="hover:text-[#38BDF8] transition-colors">
+                <a href="#tjanster" className="hover:text-[#D97D30] transition-colors">
                   {lang === 'sv' ? 'Bygg- & Renoveringsverksamhet' : 'Building & Renovation'}
                 </a>
               </li>
               <li>
-                <a href="#underhall" className="hover:text-[#38BDF8] transition-colors">
+                <a href="#underhall" className="hover:text-[#D97D30] transition-colors">
                   {lang === 'sv' ? 'Planerat Fastighetsunderhåll' : 'Planned Facility Maintenance'}
                 </a>
               </li>
               <li>
-                <a href="#tjanster" className="hover:text-[#38BDF8] transition-colors">
+                <a href="#tjanster" className="hover:text-[#D97D30] transition-colors">
                   {lang === 'sv' ? 'Teknisk Konsultation & Rådgivning' : 'Engineering & Technical Consulting'}
                 </a>
               </li>
               <li>
-                <a href="#tjanster" className="hover:text-[#38BDF8] transition-colors">
+                <a href="#tjanster" className="hover:text-[#D97D30] transition-colors">
                   {lang === 'sv' ? 'VVS-, Ventilation- & Måleri' : 'HVAC, Ventilation & Painting'}
                 </a>
               </li>
               <li>
-                <a href="#tjanster" className="hover:text-[#38BDF8] transition-colors">
+                <a href="#tjanster" className="hover:text-[#D97D30] transition-colors">
                   {lang === 'sv' ? 'Fastighetsförvaltning & Drift' : 'Property Management & Facility'}
                 </a>
               </li>
               <li>
-                <a href="#tjanster" className="hover:text-[#38BDF8] transition-colors">
+                <a href="#tjanster" className="hover:text-[#D97D30] transition-colors">
                   {lang === 'sv' ? 'Bemanning & Personaluthyrning' : 'Staffing & Personnel Leasing'}
                 </a>
               </li>
@@ -103,23 +103,23 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
 
           {/* Col 3: Kontaktuppgifter (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#38BDF8]">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D97D30]">
               {lang === 'sv' ? 'Kontakt' : 'Contact'}
             </h4>
             <div className="space-y-2 text-xs text-[#CBD5E1]">
               <div className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#38BDF8] shrink-0 mt-0.5" />
+                <MapPin className="w-3.5 h-3.5 text-[#D97D30] shrink-0 mt-0.5" />
                 <span>Stockholm / Mälardalen, Sverige</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-[#38BDF8] shrink-0" />
-                <a href="tel:0108086733" className="hover:text-[#38BDF8] transition-colors">
+                <Phone className="w-3.5 h-3.5 text-[#D97D30] shrink-0" />
+                <a href="tel:0108086733" className="hover:text-[#D97D30] transition-colors">
                   010-808 67 33
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-[#38BDF8] shrink-0" />
-                <a href="mailto:info@skandinavexa.se" className="hover:text-[#38BDF8] transition-colors">
+                <Mail className="w-3.5 h-3.5 text-[#D97D30] shrink-0" />
+                <a href="mailto:info@skandinavexa.se" className="hover:text-[#D97D30] transition-colors">
                   info@skandinavexa.se
                 </a>
               </div>
@@ -128,24 +128,24 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
 
           {/* Col 4: Certifieringar & F-skatt (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#38BDF8]">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D97D30]">
               {t.certifications[lang]}
             </h4>
             <div className="space-y-2 text-[11px] text-[#CBD5E1]">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#D97D30]" />
                 <span>{t.cert1}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Award className="w-3.5 h-3.5 text-[#38BDF8]" />
+                <Award className="w-3.5 h-3.5 text-[#D97D30]" />
                 <span>{t.cert2}</span>
               </div>
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#38BDF8]" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#D97D30]" />
                 <span>{t.cert3}</span>
               </div>
               <div className="flex items-center gap-2">
-                <HeartHandshake className="w-3.5 h-3.5 text-[#38BDF8]" />
+                <HeartHandshake className="w-3.5 h-3.5 text-[#D97D30]" />
                 <span>{t.cert4}</span>
               </div>
             </div>

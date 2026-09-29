@@ -75,14 +75,14 @@ export const Logo: React.FC<LogoProps> = ({
         <div className={`flex flex-col items-center justify-center leading-tight ${showEmblem ? 'mt-2' : ''} text-center`}>
           <span
             className={`font-sans font-bold tracking-tight ${
-              isDark ? 'text-white' : 'text-[#164E87]'
+              isDark ? 'text-white' : 'text-[#05172C]'
             } ${textSizes[size].title}`}
           >
             Skandivexa
           </span>
           <span
             className={`font-sans font-semibold tracking-normal mt-0.5 ${
-              isDark ? 'text-[#94B3D4]' : 'text-[#164E87]/80'
+              isDark ? 'text-[#C26E26]' : 'text-[#C26E26]'
             } ${textSizes[size].sub}`}
           >
             konsult AB
@@ -99,14 +99,14 @@ export const Logo: React.FC<LogoProps> = ({
       <div className="flex items-baseline gap-1.5 leading-none">
         <span
           className={`font-sans font-extrabold tracking-tight ${
-            isDark ? 'text-white' : 'text-[#164E87]'
+            isDark ? 'text-white' : 'text-[#05172C]'
           } ${textSizes[size].title}`}
         >
           Skandivexa
         </span>
         <span
-          className={`font-sans font-semibold tracking-normal ${
-            isDark ? 'text-[#94B3D4]' : 'text-[#164E87]/85'
+          className={`font-sans font-bold tracking-normal ${
+            isDark ? 'text-[#D97D30]' : 'text-[#C26E26]'
           } ${textSizes[size].sub}`}
         >
           konsult AB

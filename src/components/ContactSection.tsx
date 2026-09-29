@@ -70,10 +70,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#164E87] block mb-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#C26E26] block mb-2">
             {t.eyebrow[lang]}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0C2340] tracking-tight font-display mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#05172C] tracking-tight font-display mb-4">
             {t.title[lang]}
           </h2>
           <p className="text-base text-[#475569] leading-relaxed">
@@ -85,8 +85,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           
           {/* Card 1: Phone & Hours */}
-          <div className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs hover:border-[#164E87] transition-all">
-            <div className="w-10 h-10 rounded-xl bg-[#F0F6FB] text-[#164E87] flex items-center justify-center mb-4 border border-[#D4E2F0]">
+          <div className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs hover:border-[#C26E26] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-[#FFF7ED] text-[#C26E26] flex items-center justify-center mb-4 border border-[#E8D4C1] group-hover:bg-[#C26E26] group-hover:text-white transition-colors">
               <Phone className="w-5 h-5" />
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] block mb-1">
@@ -94,19 +94,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
             </span>
             <a
               href="tel:0108086733"
-              className="text-lg font-bold text-[#0C2340] hover:text-[#164E87] transition-colors block mb-2"
+              className="text-lg font-bold text-[#05172C] hover:text-[#C26E26] transition-colors block mb-2"
             >
               {t.phoneVal}
             </a>
             <div className="flex items-center gap-1.5 text-xs text-[#64748B]">
-              <Clock className="w-3.5 h-3.5 text-[#164E87]" />
+              <Clock className="w-3.5 h-3.5 text-[#C26E26]" />
               <span>{t.hoursVal[lang]}</span>
             </div>
           </div>
 
           {/* Card 2: Email & Inquiries */}
-          <div className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs hover:border-[#164E87] transition-all">
-            <div className="w-10 h-10 rounded-xl bg-[#F0F6FB] text-[#164E87] flex items-center justify-center mb-4 border border-[#D4E2F0]">
+          <div className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs hover:border-[#C26E26] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-[#FFF7ED] text-[#C26E26] flex items-center justify-center mb-4 border border-[#E8D4C1] group-hover:bg-[#C26E26] group-hover:text-white transition-colors">
               <Mail className="w-5 h-5" />
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] block mb-1">
@@ -114,7 +114,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
             </span>
             <a
               href="mailto:info@skandinavexa.se"
-              className="text-lg font-bold text-[#0C2340] hover:text-[#164E87] transition-colors block mb-2"
+              className="text-lg font-bold text-[#05172C] hover:text-[#C26E26] transition-colors block mb-2"
             >
               {t.emailVal}
             </a>
@@ -124,18 +124,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
           </div>
 
           {/* Card 3: Location & Registration */}
-          <div className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs hover:border-[#164E87] transition-all">
-            <div className="w-10 h-10 rounded-xl bg-[#F0F6FB] text-[#164E87] flex items-center justify-center mb-4 border border-[#D4E2F0]">
+          <div className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs hover:border-[#C26E26] transition-all group">
+            <div className="w-10 h-10 rounded-xl bg-[#FFF7ED] text-[#C26E26] flex items-center justify-center mb-4 border border-[#E8D4C1] group-hover:bg-[#C26E26] group-hover:text-white transition-colors">
               <MapPin className="w-5 h-5" />
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#64748B] block mb-1">
               {t.addressLabel[lang]}
             </span>
-            <p className="text-base font-bold text-[#0C2340] mb-1">
+            <p className="text-base font-bold text-[#05172C] mb-1">
               {t.addressVal}
             </p>
             <div className="flex items-center gap-1.5 text-xs text-[#64748B]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#164E87]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#C26E26]" />
               <span>F-skatt • Moms • Svenskt AB</span>
             </div>
           </div>
@@ -147,7 +147,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
           
           {/* Quick Message Box */}
           <div className="lg:col-span-6 bg-white p-6 sm:p-8 rounded-2xl border border-[#E2E8F0] shadow-xs">
-            <h3 className="text-xl font-bold font-display text-[#0C2340] mb-2">
+            <h3 className="text-xl font-bold font-display text-[#05172C] mb-2">
               {lang === 'sv' ? 'Snabbkontakt & Återringning' : 'Quick Contact & Callback'}
             </h3>
             <p className="text-xs text-[#64748B] mb-6">
@@ -159,7 +159,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
             {quickSent ? (
               <div className="p-6 rounded-xl bg-[#F0FDF4] border border-emerald-200 text-center">
                 <Check className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
-                <span className="text-sm font-bold text-[#0C2340] block">
+                <span className="text-sm font-bold text-[#05172C] block">
                   {lang === 'sv' ? 'Tack! Vi ringer upp dig inom kort.' : 'Thank you! We will call you back shortly.'}
                 </span>
                 <span className="text-xs text-[#64748B] mt-1 block">
@@ -169,7 +169,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
             ) : (
               <form onSubmit={handleQuickContact} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                  <label className="block text-xs font-semibold text-[#05172C] mb-1">
                     {lang === 'sv' ? 'Ditt namn' : 'Your name'} *
                   </label>
                   <input
@@ -178,11 +178,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
                     value={quickName}
                     onChange={(e) => setQuickName(e.target.value)}
                     placeholder="Förnamn Efternamn"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                  <label className="block text-xs font-semibold text-[#05172C] mb-1">
                     {lang === 'sv' ? 'Telefonnummer' : 'Phone number'} *
                   </label>
                   <input
@@ -191,11 +191,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
                     value={quickPhone}
                     onChange={(e) => setQuickPhone(e.target.value)}
                     placeholder="070-123 45 67"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#0F233A] mb-1">
+                  <label className="block text-xs font-semibold text-[#05172C] mb-1">
                     {lang === 'sv' ? 'Vad gäller ärendet?' : 'Brief inquiry subject'}
                   </label>
                   <textarea
@@ -207,23 +207,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
                         ? 't.ex. renovering, VVS-installation, underhållsplan eller konsultation...'
                         : 'e.g. renovation, plumbing installation, maintenance plan or consulting...'
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#164E87] focus:bg-white text-sm outline-none resize-none transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] focus:border-[#C26E26] focus:bg-white text-sm outline-none resize-none transition-colors"
                   />
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
                   <button
                     type="submit"
-                    className="flex-1 py-3 px-4 rounded-lg bg-[#164E87] hover:bg-[#123E6E] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="flex-1 py-3 px-4 rounded-lg bg-[#C26E26] hover:bg-[#A85B1B] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
-                    <Send className="w-3.5 h-3.5 text-[#38BDF8]" />
+                    <Send className="w-3.5 h-3.5" />
                     <span>{lang === 'sv' ? 'Bli uppringd' : 'Request Callback'}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={onOpenQuote}
-                    className="py-3 px-4 rounded-lg bg-[#F0F6FB] hover:bg-[#E4EEF8] text-[#164E87] border border-[#D4E2F0] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+                    className="py-3 px-4 rounded-lg bg-[#FFF7ED] hover:bg-[#FFEDD5] text-[#C26E26] border border-[#E8D4C1] font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
                   >
                     <span>{lang === 'sv' ? 'Full offertförfrågan' : 'Full Quote Form'}</span>
                   </button>
@@ -235,8 +235,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
           {/* FAQ Accordion */}
           <div className="lg:col-span-6">
             <div className="flex items-center gap-2 mb-4">
-              <HelpCircle className="w-4 h-4 text-[#164E87]" />
-              <h3 className="text-lg font-bold font-display text-[#0C2340]">
+              <HelpCircle className="w-4 h-4 text-[#C26E26]" />
+              <h3 className="text-lg font-bold font-display text-[#05172C]">
                 {lang === 'sv' ? 'Vanliga frågor (FAQ)' : 'Frequently Asked Questions'}
               </h3>
             </div>
@@ -252,17 +252,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full p-4 text-left flex items-center justify-between gap-3 text-sm font-bold text-[#0C2340] hover:bg-[#F0F6FB] transition-colors cursor-pointer"
+                      className="w-full p-4 text-left flex items-center justify-between gap-3 text-sm font-bold text-[#05172C] hover:bg-[#FFF7ED] transition-colors cursor-pointer"
                     >
                       <span className="leading-snug">{item.q[lang]}</span>
                       <ChevronDown
-                        className={`w-4 h-4 text-[#164E87] transition-transform duration-200 shrink-0 ${
+                        className={`w-4 h-4 text-[#C26E26] transition-transform duration-200 shrink-0 ${
                           isOpen ? 'rotate-180' : ''
                         }`}
                       />
                     </button>
                     {isOpen && (
-                      <div className="p-4 pt-0 text-xs sm:text-sm text-[#475569] leading-relaxed border-t border-[#EDF2F7] bg-[#F0F6FB]">
+                      <div className="p-4 pt-0 text-xs sm:text-sm text-[#475569] leading-relaxed border-t border-[#EDF2F7] bg-[#FFF7ED]/30">
                         {item.a[lang]}
                       </div>
                     )}
