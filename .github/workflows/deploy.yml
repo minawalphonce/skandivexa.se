@@ -1,16 +1,19 @@
-name: Build and deploy to Loopia
+name: Build, release and deploy
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 concurrency:
-  group: deploy
+  group: release
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,58 +28,68 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 14
 
-      # Uploads the Vite build output folder "dist/" (created by "bun run
-      # build" above) with the plain OpenSSH sftp command, using sshpass to
-      # supply the password non-interactively. First checks the remote
-      # folder can be opened, so a wrong path fails cleanly instead of
-      # uploading into the account's home directory.
-      - name: Upload dist/ to Loopia via SFTP
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Zip build output
+        run: (cd dist && zip -qr ../skandivexa-dist.zip .)
+
+      # Tags the current commit as vN (N = this workflow's run number) and
+      # creates a GitHub Release with the zipped dist/ folder attached, so
+      # it can be downloaded from the repo's Releases page.
+      - name: Create tag + release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Build v${{ github.run_number }}
+          body: |
+            Automated build from commit ${{ github.sha }}.
+            Download `skandivexa-dist.zip` below and upload its contents to your web host.
+          files: skandivexa-dist.zip
+
+  deploy-ftps:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      # Loopia's hosting account uses FTPS (FTP over explicit TLS, port 21),
+      # not SFTP (SSH, port 22) -- the earlier attempts at this deploy step
+      # all used SFTP-only tools and never had a chance of connecting.
+      # LFTP_PASSWORD is read automatically by "open --env-password".
+      - name: Upload dist/ to Loopia via FTPS
         env:
-          SFTP_HOST: ${{ vars.SFTP_HOST || 'ftpcluster.loopia.se' }}
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || 'skandivexa.se/public_html' }}
+          FTP_HOST: ${{ vars.FTP_HOST || 'skandivexa.se' }}
+          FTP_PORT: ${{ vars.FTP_PORT || '21' }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ vars.FTP_REMOTE_DIR || 'public_html' }}
         run: |
-          set -uo pipefail
-          SFTP_OPTS=(-o AddressFamily=inet -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 -o ConnectionAttempts=3 "$SFTP_USERNAME@$SFTP_HOST")
-          run_sftp() { SSHPASS="$SFTP_PASSWORD" sshpass -e sftp "${SFTP_OPTS[@]}" 2>&1; }
-
-          echo "Checking remote folder $SFTP_REMOTE_DIR"
-          if check=$(run_sftp <<SFTP_EOF
-          cd $SFTP_REMOTE_DIR
-          SFTP_EOF
-          ); then
-            check_status=0
-          else
-            check_status=$?
-          fi
-          if [ $check_status -ne 0 ] || echo "$check" | grep -qiE "no such file|not a directory|permission denied|Connection closed"; then
-            echo "$check"
-            if echo "$check" | grep -qiE "timed out|Network is unreachable|No route to host|Connection refused"; then
-              echo "::error::Could not connect to $SFTP_HOST on port 22 after 3 attempts. Check the SFTP host and network access."
-            else
-              echo "::error::Could not open remote folder $SFTP_REMOTE_DIR. Check the SFTP_REMOTE_DIR variable and the SFTP secrets."
-            fi
-            exit 1
-          fi
-
-          echo "Uploading dist/ -> $SFTP_REMOTE_DIR on $SFTP_HOST"
-          if out=$(run_sftp <<SFTP_EOF
-          cd $SFTP_REMOTE_DIR
-          put -r dist/* .
-          bye
-          SFTP_EOF
-          ); then
-            status=0
-          else
-            status=$?
-          fi
-          echo "$out"
-          if [ $status -ne 0 ] || echo "$out" | grep -qiE "no such file|not a directory|permission denied|Couldn't|Connection closed|Upload of .* failed"; then
-            echo "::error::SFTP upload failed"
-            exit 1
-          fi
-          echo "Upload finished successfully."
+          lftp -e "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set net:max-retries 2;
+            set net:timeout 30;
+            open --env-password -u $FTP_USERNAME -p $FTP_PORT ftp://$FTP_HOST;
+            cd $FTP_REMOTE_DIR;
+            mirror --reverse --delete --verbose --parallel=4 --exclude-glob .htaccess --exclude .well-known/ dist/ .;
+            bye
+          "
