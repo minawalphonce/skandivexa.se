@@ -45,24 +45,31 @@ jobs:
           run_sftp() { SSHPASS="$SFTP_PASSWORD" sshpass -e sftp "${SFTP_OPTS[@]}" 2>&1; }
 
           echo "Checking remote folder $SFTP_REMOTE_DIR"
-          check=$(run_sftp <<SFTP_EOF
+          if check=$(run_sftp <<SFTP_EOF
           cd $SFTP_REMOTE_DIR
           SFTP_EOF
-          )
-          if [ $? -ne 0 ] || echo "$check" | grep -qiE "no such file|not a directory|permission denied|Connection closed"; then
+          ); then
+            check_status=0
+          else
+            check_status=$?
+          fi
+          if [ $check_status -ne 0 ] || echo "$check" | grep -qiE "no such file|not a directory|permission denied|Connection closed"; then
             echo "$check"
             echo "::error::Could not open remote folder $SFTP_REMOTE_DIR. Check the SFTP_REMOTE_DIR variable and the SFTP secrets."
             exit 1
           fi
 
           echo "Uploading dist/ -> $SFTP_REMOTE_DIR on $SFTP_HOST"
-          out=$(run_sftp <<SFTP_EOF
+          if out=$(run_sftp <<SFTP_EOF
           cd $SFTP_REMOTE_DIR
           put -r dist/* .
           bye
           SFTP_EOF
-          )
-          status=$?
+          ); then
+            status=0
+          else
+            status=$?
+          fi
           echo "$out"
           if [ $status -ne 0 ] || echo "$out" | grep -qiE "no such file|not a directory|permission denied|Couldn't|Connection closed|Upload of .* failed"; then
             echo "::error::SFTP upload failed"
