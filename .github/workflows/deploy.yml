@@ -34,12 +34,31 @@ jobs:
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || 'skandivexa.se/public_html' }}
+          # Vite's build output folder (see "build" script in package.json)
+          BUILD_DIR: dist
         run: |
+          # Strip whitespace, newlines and surrounding quotes that often sneak in
+          # when pasting the secret into GitHub.
+          user="$(printf '%s' "$SFTP_USERNAME" | tr -d '\r\n' | sed -e 's/^[[:space:]"'\'']*//' -e 's/[[:space:]"'\'']*$//')"
+          LFTP_PASSWORD="$(printf '%s' "$LFTP_PASSWORD" | tr -d '\r\n')"
+          export LFTP_PASSWORD
+
+          if [ -z "$user" ]; then
+            echo "::error::SFTP_USERNAME secret is empty"; exit 1
+          fi
+          if printf '%s' "$user" | grep -q '[[:space:]'\''"`;&|<>(){}]'; then
+            echo "::error::SFTP_USERNAME contains spaces or special characters (quotes, ; & | < > etc). Re-enter the secret with only the username, e.g. name@skandivexa.se"
+            exit 1
+          fi
+          echo "Username length: ${#user}, contains @: $(case "$user" in *@*) echo yes;; *) echo no;; esac)"
+          echo "Uploading ./$BUILD_DIR -> $SFTP_REMOTE_DIR on $SFTP_HOST"
+
           lftp -e "
             set sftp:auto-confirm yes;
-            set net:max-retries 3;
+            set net:max-retries 2;
             set net:timeout 30;
-            open --env-password -u \"$SFTP_USERNAME\" sftp://$SFTP_HOST;
-            mirror --reverse --delete --verbose --parallel=4 --exclude-glob .htaccess --exclude .well-known/ dist/ \"$SFTP_REMOTE_DIR\";
+            open --env-password -u \"$user\" sftp://$SFTP_HOST;
+            cd \"$SFTP_REMOTE_DIR\";
+            mirror --reverse --delete --verbose --parallel=4 --exclude-glob .htaccess --exclude .well-known/ $BUILD_DIR/ .;
             bye
           "
