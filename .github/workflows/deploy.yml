@@ -38,7 +38,7 @@ jobs:
           SFTP_HOST: ${{ vars.SFTP_HOST || 'ftpcluster.loopia.se' }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || './skandivexa.se/public_html' }}
+          SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || 'skandivexa.se/public_html' }}
         run: |
           set -uo pipefail
           SFTP_OPTS=(-o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 "$SFTP_USERNAME@$SFTP_HOST")
