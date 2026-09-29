@@ -1,16 +1,19 @@
-name: Build and deploy to Loopia
+name: Build and release dist
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 concurrency:
-  group: deploy
+  group: release
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-and-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,47 +28,18 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
+      - name: Zip build output
+        run: (cd dist && zip -qr ../skandivexa-dist.zip .)
 
-      # Uploads the Vite build output folder "dist/" (created by "bun run
-      # build" above) with the plain OpenSSH sftp command, using sshpass to
-      # supply the password non-interactively. First checks the remote
-      # folder can be opened, so a wrong path fails cleanly instead of
-      # uploading into the account's home directory.
-      - name: Upload dist/ to Loopia via SFTP
-        env:
-          SFTP_HOST: ${{ vars.SFTP_HOST || 'ftpcluster.loopia.se' }}
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || '/skandivexa.se/public_html' }}
-        run: |
-          set -uo pipefail
-          SFTP_OPTS=(-o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 "$SFTP_USERNAME@$SFTP_HOST")
-          run_sftp() { SSHPASS="$SFTP_PASSWORD" sshpass -e sftp "${SFTP_OPTS[@]}" 2>&1; }
-
-          echo "Checking remote folder $SFTP_REMOTE_DIR"
-          check=$(run_sftp <<SFTP_EOF
-          cd $SFTP_REMOTE_DIR
-          SFTP_EOF
-          )
-          if [ $? -ne 0 ] || echo "$check" | grep -qiE "no such file|not a directory|permission denied|Connection closed"; then
-            echo "$check"
-            echo "::error::Could not open remote folder $SFTP_REMOTE_DIR. Check the SFTP_REMOTE_DIR variable and the SFTP secrets."
-            exit 1
-          fi
-
-          echo "Uploading dist/ -> $SFTP_REMOTE_DIR on $SFTP_HOST"
-          out=$(run_sftp <<SFTP_EOF
-          cd $SFTP_REMOTE_DIR
-          put -r dist/* .
-          bye
-          SFTP_EOF
-          )
-          status=$?
-          echo "$out"
-          if [ $status -ne 0 ] || echo "$out" | grep -qiE "no such file|not a directory|permission denied|Couldn't|Connection closed|Upload of .* failed"; then
-            echo "::error::SFTP upload failed"
-            exit 1
-          fi
-          echo "Upload finished successfully."
+      # Tags the current commit as vN (N = this workflow's run number) and
+      # creates a GitHub Release with the zipped dist/ folder attached, so
+      # it can be downloaded from the repo's Releases page.
+      - name: Create tag + release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Build v${{ github.run_number }}
+          body: |
+            Automated build from commit ${{ github.sha }}.
+            Download `skandivexa-dist.zip` below and upload its contents to your web host.
+          files: skandivexa-dist.zip
