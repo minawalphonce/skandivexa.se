@@ -41,7 +41,7 @@ jobs:
           SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || 'skandivexa.se/public_html' }}
         run: |
           set -uo pipefail
-          SFTP_OPTS=(-o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 "$SFTP_USERNAME@$SFTP_HOST")
+          SFTP_OPTS=(-o AddressFamily=inet -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 "$SFTP_USERNAME@$SFTP_HOST")
           run_sftp() { SSHPASS="$SFTP_PASSWORD" sshpass -e sftp "${SFTP_OPTS[@]}" 2>&1; }
 
           echo "Checking remote folder $SFTP_REMOTE_DIR"
