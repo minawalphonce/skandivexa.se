@@ -25,40 +25,30 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
+      - name: Install rclone
+        run: sudo apt-get update && sudo apt-get install -y rclone
 
-      - name: Upload to Loopia via SFTP
+      # Upload the Vite build output folder "dist/" (created by "bun run build")
+      # to the Loopia web root. rclone has its own SFTP client, so it does not
+      # depend on the system ssh binary.
+      - name: Upload dist/ to Loopia via SFTP
         env:
           SFTP_HOST: ${{ vars.SFTP_HOST || 'ftpcluster.loopia.se' }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || '/skandivexa.se/public_html' }}
         run: |
-          # Strip whitespace, newlines and surrounding quotes that often sneak in
-          # when pasting the secret into GitHub.
-          user="$(printf '%s' "$SFTP_USERNAME" | tr -d '\r\n' | sed -e 's/^[[:space:]"'\'']*//' -e 's/[[:space:]"'\'']*$//')"
-          LFTP_PASSWORD="$(printf '%s' "$LFTP_PASSWORD" | tr -d '\r\n')"
-          export LFTP_PASSWORD
+          export RCLONE_SFTP_HOST="$SFTP_HOST"
+          export RCLONE_SFTP_USER="$(printf '%s' "$SFTP_USERNAME" | tr -d '\r\n')"
+          export RCLONE_SFTP_PASS="$(printf '%s' "$SFTP_PASSWORD" | tr -d '\r\n' | rclone obscure -)"
+          # Loopia only allows SFTP (no shell commands).
+          export RCLONE_SFTP_SHELL_TYPE=none
+          export RCLONE_SFTP_DISABLE_HASHCHECK=true
 
-          if [ -z "$user" ]; then
-            echo "::error::SFTP_USERNAME secret is empty"; exit 1
-          fi
-          if printf '%s' "$user" | grep -q '[[:space:]'\''"`;&|<>(){}]'; then
-            echo "::error::SFTP_USERNAME contains spaces or special characters (quotes, ; & | < > etc). Re-enter the secret with only the username, e.g. admin_web"
-            exit 1
-          fi
-          echo "Username length: ${#user} characters (admin_web = 9)"
+          echo "Checking remote folder $SFTP_REMOTE_DIR"
+          rclone lsf ":sftp:$SFTP_REMOTE_DIR" --max-depth 1 > /dev/null
+
           echo "Uploading ./dist -> $SFTP_REMOTE_DIR on $SFTP_HOST"
-
-          # Upload the Vite build output folder "dist/" (created by "bun run build")
-          # into the remote web root.
-          lftp -e "
-            set sftp:auto-confirm yes;
-            set net:max-retries 2;
-            set net:timeout 30;
-            open --env-password -u \"$user\" sftp://$SFTP_HOST;
-            cd \"$SFTP_REMOTE_DIR\";
-            mirror --reverse --delete --verbose --parallel=4 --exclude-glob .htaccess --exclude .well-known/ dist/ .;
-            bye
-          "
+          rclone sync dist ":sftp:$SFTP_REMOTE_DIR" \
+            --exclude "/.htaccess" --exclude "/.well-known/**" \
+            --transfers 4 --stats-one-line -v
