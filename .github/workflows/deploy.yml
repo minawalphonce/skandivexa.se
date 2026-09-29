@@ -1,0 +1,45 @@
+name: Build and deploy to Loopia
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Upload to Loopia via SFTP
+        env:
+          SFTP_HOST: ${{ vars.SFTP_HOST || 'ftpcluster.loopia.se' }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || 'skandivexa.se/public_html' }}
+        run: |
+          lftp -e "
+            set sftp:auto-confirm yes;
+            set net:max-retries 3;
+            set net:timeout 30;
+            open --env-password -u \"$SFTP_USERNAME\" sftp://$SFTP_HOST;
+            mirror --reverse --delete --verbose --parallel=4 --exclude-glob .htaccess --exclude .well-known/ dist/ \"$SFTP_REMOTE_DIR\";
+            bye
+          "
