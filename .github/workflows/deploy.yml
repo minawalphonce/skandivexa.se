@@ -1,4 +1,4 @@
-name: Build and release dist
+name: Build, release and deploy
 
 on:
   push:
@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,6 +27,21 @@ jobs:
 
       - name: Build
         run: bun run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 14
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
 
       - name: Zip build output
         run: (cd dist && zip -qr ../skandivexa-dist.zip .)
@@ -43,3 +58,38 @@ jobs:
             Automated build from commit ${{ github.sha }}.
             Download `skandivexa-dist.zip` below and upload its contents to your web host.
           files: skandivexa-dist.zip
+
+  deploy-ftps:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      # Loopia's hosting account uses FTPS (FTP over explicit TLS, port 21),
+      # not SFTP (SSH, port 22) -- the earlier attempts at this deploy step
+      # all used SFTP-only tools and never had a chance of connecting.
+      # LFTP_PASSWORD is read automatically by "open --env-password".
+      - name: Upload dist/ to Loopia via FTPS
+        env:
+          FTP_HOST: ${{ vars.FTP_HOST || 'skandivexa.se' }}
+          FTP_PORT: ${{ vars.FTP_PORT || '21' }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ vars.FTP_REMOTE_DIR || 'public_html' }}
+        run: |
+          lftp -e "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set net:max-retries 2;
+            set net:timeout 30;
+            open --env-password -u $FTP_USERNAME -p $FTP_PORT ftp://$FTP_HOST;
+            cd $FTP_REMOTE_DIR;
+            mirror --reverse --delete --verbose --parallel=4 --exclude-glob .htaccess --exclude .well-known/ dist/ .;
+            bye
+          "
