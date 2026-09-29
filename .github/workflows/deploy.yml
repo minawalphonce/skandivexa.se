@@ -74,15 +74,21 @@ jobs:
       # Loopia's hosting account uses FTPS (FTP over explicit TLS, port 21),
       # not SFTP (SSH, port 22) -- the earlier attempts at this deploy step
       # all used SFTP-only tools and never had a chance of connecting.
-      # LFTP_PASSWORD is read automatically by "open --env-password".
+      # LFTP_PASSWORD is not a separate secret: it's just the env var name
+      # lftp's own "open --env-password" flag reads from, set here from the
+      # FTP_PASSWORD secret.
       - name: Upload dist/ to Loopia via FTPS
         env:
-          FTP_HOST: ${{ vars.FTP_HOST || 'skandivexa.se' }}
+          FTP_HOST: ${{ vars.FTP_HOST || 'ftpcluster.loopia.se' }}
           FTP_PORT: ${{ vars.FTP_PORT || '21' }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_REMOTE_DIR: ${{ vars.FTP_REMOTE_DIR || 'public_html' }}
+          FTP_REMOTE_DIR: ${{ vars.FTP_REMOTE_DIR || 'skandivexa.se/public_html' }}
         run: |
+          if [ -z "$FTP_USERNAME" ] || [ -z "$LFTP_PASSWORD" ]; then
+            echo "::error::FTP_USERNAME or FTP_PASSWORD secret is not set. Go to Settings > Secrets and variables > Actions and add both."
+            exit 1
+          fi
           lftp -e "
             set ftp:ssl-force true;
             set ftp:ssl-protect-data true;
