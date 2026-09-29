@@ -25,30 +25,21 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Install rclone
-        run: sudo apt-get update && sudo apt-get install -y rclone
+      - name: Install deploy script dependencies
+        run: npm ci --no-audit --no-fund
+        working-directory: .github/scripts
 
-      # Upload the Vite build output folder "dist/" (created by "bun run build")
-      # to the Loopia web root. rclone has its own SFTP client, so it does not
-      # depend on the system ssh binary.
+      # Uploads the Vite build output folder "dist/" (created by "bun run
+      # build" above) to the Loopia web root, and removes remote files that
+      # are no longer part of the build. Uses ssh2-sftp-client (pure JS)
+      # instead of lftp/rclone, which both hit runner-specific issues
+      # talking to Loopia's SFTP server (lftp: invalid ssh args on this
+      # runner image; rclone: connection hangs without erroring).
       - name: Upload dist/ to Loopia via SFTP
         env:
           SFTP_HOST: ${{ vars.SFTP_HOST || 'ftpcluster.loopia.se' }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           SFTP_REMOTE_DIR: ${{ vars.SFTP_REMOTE_DIR || '/skandivexa.se/public_html' }}
-        run: |
-          export RCLONE_SFTP_HOST="$SFTP_HOST"
-          export RCLONE_SFTP_USER="$(printf '%s' "$SFTP_USERNAME" | tr -d '\r\n')"
-          export RCLONE_SFTP_PASS="$(printf '%s' "$SFTP_PASSWORD" | tr -d '\r\n' | rclone obscure -)"
-          # Loopia only allows SFTP (no shell commands).
-          export RCLONE_SFTP_SHELL_TYPE=none
-          export RCLONE_SFTP_DISABLE_HASHCHECK=true
-
-          echo "Checking remote folder $SFTP_REMOTE_DIR"
-          rclone lsf ":sftp:$SFTP_REMOTE_DIR" --max-depth 1 > /dev/null
-
-          echo "Uploading ./dist -> $SFTP_REMOTE_DIR on $SFTP_HOST"
-          rclone sync dist ":sftp:$SFTP_REMOTE_DIR" \
-            --exclude "/.htaccess" --exclude "/.well-known/**" \
-            --transfers 4 --stats-one-line -v
+          LOCAL_DIR: dist
+        run: node .github/scripts/deploy.mjs
