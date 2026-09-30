@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Language, QuoteRequest } from '../types';
 import { UI_TEXT, SERVICES } from '../data/content';
 import { X, CheckCircle, Send, Mail } from 'lucide-react';
+import { buildMailto } from '../utils/mailto';
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -66,24 +67,37 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     });
   };
 
+  const buildQuoteEmail = (ref: string) => {
+    const lines = [
+      'Hej Skandivexa konsult AB,',
+      '',
+      'Jag vill ha en offert via er hemsida.',
+      '',
+      `Referens: ${ref}`,
+      `Kundtyp: ${t.types[formData.clientType].sv}`,
+      `Namn: ${formData.name}`,
+    ];
+    if (formData.companyName) lines.push(`Företag / BRF: ${formData.companyName}`);
+    lines.push(
+      `Telefon: ${formData.phone}`,
+      `E-post: ${formData.email}`,
+      `Ort: ${formData.city}`,
+    );
+    if (formData.address) lines.push(`Adress: ${formData.address}`);
+    if (formData.services.length) lines.push(`Tjänster: ${formData.services.join(', ')}`);
+    lines.push(`Önskad start: ${t.timeframes[formData.estimatedTimeframe as keyof typeof t.timeframes]?.sv ?? formData.estimatedTimeframe}`);
+    if (formData.clientType === 'private') lines.push(`ROT-avdrag önskas: ${formData.wantsRotDeduction ? 'Ja' : 'Nej'}`);
+    if (formData.estimatedBudget) lines.push(`Uppskattad arbetskostnad: ${formData.estimatedBudget}`);
+    lines.push('', 'Beskrivning:', formData.projectDescription, '', 'Med vänliga hälsningar,', formData.name);
+    return buildMailto(`Offertförfrågan ${ref} – ${formData.name}`, lines);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const referenceNum = `SKV-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
-    
-    // Save to local storage for persistence
-    try {
-      const existing = JSON.parse(localStorage.getItem('skandivexa_inquiries') || '[]');
-      existing.push({
-        ref: referenceNum,
-        date: new Date().toISOString(),
-        ...formData,
-      });
-      localStorage.setItem('skandivexa_inquiries', JSON.stringify(existing));
-    } catch {
-      // ignore storage errors
-    }
-
     setSubmittedRef(referenceNum);
+    // Open the visitor's email program with the request filled in.
+    window.location.href = buildQuoteEmail(referenceNum);
   };
 
   const resetAndClose = () => {
@@ -156,11 +170,11 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
             <div className="flex flex-wrap justify-center gap-3">
               <a
-                href={`mailto:info@skandinavexa.se?subject=Offertförfrågan [${submittedRef}] - ${formData.name}&body=Hej Skandivexa konsult AB,%0D%0A%0D%0AJag har skickat in en offertförfrågan via hemsidan med referens: ${submittedRef}.%0D%0A%0D%0AProjekt: ${formData.projectDescription}%0D%0AStad: ${formData.city}%0D%0ATelefon: ${formData.phone}`}
+                href={buildQuoteEmail(submittedRef)}
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#C26E26] text-white text-xs font-bold hover:bg-[#A85B1B] transition-colors shadow-xs"
               >
                 <Mail className="w-3.5 h-3.5 text-white" />
-                <span>{lang === 'sv' ? 'Skicka bekräftelsemail' : 'Send copy via Email'}</span>
+                <span>{lang === 'sv' ? 'Öppna e-postmeddelandet igen' : 'Open the email again'}</span>
               </a>
 
               <button
@@ -382,8 +396,12 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               </button>
               <p className="text-[11px] text-center text-[#64748B] mt-2">
                 {lang === 'sv'
-                  ? 'Kostnadsfri offert utan förbindelser. Vi behandlar dina personuppgifter konfidentiellt enligt GDPR.'
-                  : 'Free quote with no obligations. Personal information handled confidentially according to GDPR.'}
+                  ? 'Kostnadsfri offert utan förbindelser. Vi behandlar dina personuppgifter enligt vår '
+                  : 'Free quote with no obligations. We handle your personal data according to our '}
+                <a href="#integritetspolicy" className="underline hover:text-[#C26E26]">
+                  {lang === 'sv' ? 'integritetspolicy' : 'privacy policy'}
+                </a>
+                .
               </p>
             </div>
 

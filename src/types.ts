@@ -12,17 +12,6 @@ export interface ServiceItem {
   badge?: Record<Language, string>;
 }
 
-export interface ProjectItem {
-  id: string;
-  title: Record<Language, string>;
-  location: string;
-  category: Record<Language, string>;
-  description: Record<Language, string>;
-  year: string;
-  image: string;
-  stats?: { label: Record<Language, string>; value: string }[];
-}
-
 export interface QuoteRequest {
   clientType: 'private' | 'company' | 'brf' | 'public';
   services: string[];

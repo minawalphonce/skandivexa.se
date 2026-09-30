@@ -1,4 +1,13 @@
-import { Language, ServiceItem, ProjectItem } from '../types';
+import { Language, ServiceItem } from '../types';
+
+/** Company details shown across the site — change them here only. */
+export const COMPANY = {
+  name: 'Skandivexa konsult AB',
+  orgNumber: '559496-3935',
+  email: 'info@skandivexa.se',
+  phone: '010-808 67 33',
+  phoneHref: 'tel:0108086733',
+};
 
 export const UI_TEXT = {
   nav: {
@@ -8,7 +17,6 @@ export const UI_TEXT = {
     realEstate: { sv: 'Fastigheter', en: 'Real Estate' },
     staffing: { sv: 'Bemanning', en: 'Staffing' },
     trade: { sv: 'Handel & Maskiner', en: 'Trade & Equipment' },
-    projects: { sv: 'Referenser', en: 'Projects' },
     rot: { sv: 'ROT-Kalkylator', en: 'ROT Tax Relief' },
     about: { sv: 'Om Bolaget', en: 'About Us' },
     contact: { sv: 'Kontakt', en: 'Contact' },
@@ -112,8 +120,8 @@ export const UI_TEXT = {
   quoteModal: {
     title: { sv: 'Begär Offert & Projektrådgivning', en: 'Request Quote & Consultation' },
     subtitle: {
-      sv: 'Beskriv ditt projekt – vi återkommer inom 24 timmar med ett genomarbetat förslag.',
-      en: 'Describe your project – we will get back to you within 24 hours with a comprehensive proposal.',
+      sv: 'Beskriv ditt projekt – när du skickar öppnas ett färdigt e-postmeddelande till oss i ditt e-postprogram.',
+      en: 'Describe your project – when you submit, a ready-made email to us opens in your email program.',
     },
     clientTypeLabel: { sv: 'Vem är du?', en: 'Client Category' },
     types: {
@@ -141,22 +149,14 @@ export const UI_TEXT = {
       '3-6months': { sv: 'Inom 3–6 månader', en: 'Within 3–6 months' },
       future: { sv: 'Längre fram / Planeringsfas', en: 'Future / Planning stage' },
     },
-    submitButton: { sv: 'Skicka Offertförfrågan', en: 'Submit Quote Request' },
+    submitButton: { sv: 'Skapa e-post med förfrågan', en: 'Create Email with Request' },
     submitting: { sv: 'Skickar...', en: 'Sending...' },
-    successTitle: { sv: 'Tack för din förfrågan!', en: 'Thank you for your inquiry!' },
+    successTitle: { sv: 'Nästan klart – skicka e-postmeddelandet', en: 'Almost done – send the email' },
     successMsg: {
-      sv: 'Vi har mottagit dina uppgifter och en projektledare från Skandivexa konsult AB kommer att kontakta dig inom kort.',
-      en: 'We have received your request and a project manager from Skandivexa konsult AB will contact you shortly.',
+      sv: 'Ett e-postmeddelande med din förfrågan har öppnats i ditt e-postprogram. Tryck på Skicka där så når förfrågan oss. Öppnades inget? Använd knappen nedan eller mejla oss direkt på info@skandivexa.se.',
+      en: 'An email with your request has opened in your email program. Press Send there and it will reach us. Nothing opened? Use the button below or email us directly at info@skandivexa.se.',
     },
     close: { sv: 'Stäng', en: 'Close' },
-  },
-  projects: {
-    eyebrow: { sv: 'REFERENSER & ENTREPRENADER', en: 'CASE STUDIES & COMPLETED WORK' },
-    title: { sv: 'Ett urval av genomförda bygg- och underhållsuppdrag', en: 'A selection of completed construction and maintenance projects' },
-    description: {
-      sv: 'Vi levererar kompromisslös kvalitet till privata fastighetsägare, bostadsrättsföreningar och kommersiella fastighetsbolag.',
-      en: 'We deliver uncompromising quality to private property owners, housing cooperatives, and commercial real estate companies.',
-    },
   },
   about: {
     eyebrow: { sv: 'OM SKANDIVEXA KONSULT AB', en: 'ABOUT SKANDIVEXA KONSULT AB' },
@@ -203,14 +203,15 @@ export const UI_TEXT = {
     phoneLabel: { sv: 'Telefon', en: 'Phone' },
     phoneVal: '010-808 67 33',
     emailLabel: { sv: 'E-post', en: 'Email' },
-    emailVal: 'info@skandinavexa.se',
+    emailVal: 'info@skandivexa.se',
     hoursLabel: { sv: 'Öppettider Kontor', en: 'Office Hours' },
     hoursVal: { sv: 'Måndag – Fredag: 07:00 – 17:00', en: 'Monday – Friday: 07:00 – 17:00' },
     orgLabel: { sv: 'Organisationsform', en: 'Company Registration' },
-    orgVal: 'Skandivexa konsult AB • Godkänd för F-skatt • Momsregistrerad',
+    orgVal: 'Skandivexa konsult AB • Org.nr 559496-3935 • Godkänd för F-skatt • Momsregistrerad',
   },
   footer: {
     rights: { sv: 'Alla rättigheter förbehållna.', en: 'All rights reserved.' },
+    privacy: { sv: 'Integritetspolicy', en: 'Privacy Policy' },
     tagline: {
       sv: 'Skandivexa konsult AB – Bygg-, underhålls- och renoveringsverksamhet, VVS, fastigheter, bemanning & konsultation i Sverige.',
       en: 'Skandivexa konsult AB – Construction, Facility Maintenance, Renovation, HVAC, Real Estate, Staffing & Consulting in Sweden.',
@@ -448,87 +449,5 @@ export const SERVICES: ServiceItem[] = [
     },
     icon: 'Truck',
     badge: { sv: 'Import & Maskiner', en: 'Equipment & Trade' },
-  },
-];
-
-export const PROJECTS: ProjectItem[] = [
-  {
-    id: 'fastighetsunderhall-nacka',
-    title: {
-      sv: 'Flerbostadshus Nacka – Fasadunderhåll, Tak & Tilläggsisolering',
-      en: 'Residential Complex Nacka – Facade Maintenance, Roofing & Insulation',
-    },
-    location: 'Nacka, Stockholm',
-    category: { sv: 'Fastighetsunderhåll', en: 'Facility Maintenance' },
-    description: {
-      sv: 'Omfattande planerat fastighetsunderhåll för 48 lägenheter. Putsreparationer och fasadomfärgning, ny bandtäckt plåt på tak, tilläggsisolering på vind och fönsterrenovering som sänkte föreningens uppvärmningskostnader markant.',
-      en: 'Comprehensive planned building maintenance for a 48-unit residential block. Render refurbishment and facade repainting, standing-seam sheet metal roofing, attic thermal insulation, and window maintenance substantially lowering heating expenses.',
-    },
-    year: '2024–2025',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-    stats: [
-      { label: { sv: 'Energibesparing', en: 'Energy Savings' }, value: '-32%' },
-      { label: { sv: 'Antal lägenheter', en: 'Apartments' }, value: '48 st' },
-      { label: { sv: 'Garantitid', en: 'Warranty' }, value: '10 år' },
-    ],
-  },
-  {
-    id: 'vasastan-brf-stambyte',
-    title: {
-      sv: 'BRF Vasastan – Stambyte, VVS, Ventilation & OVK-uppgradering',
-      en: 'BRF Vasastan – Plumbing Overhaul, HVAC & Ventilation Upgrade',
-    },
-    location: 'Vasastan, Stockholm',
-    category: { sv: 'VVS & Ventilation', en: 'HVAC & Plumbing' },
-    description: {
-      sv: 'Komplett stambyte av spill- och tappvattenledningar samt modernisering av ventilation för 32 lägenheter. Installation av energieffektivt FTX-system och godkänd OVK-besiktning.',
-      en: 'Full plumbing stack replacement and ventilation modernization across 32 apartments. Installation of energy-efficient heat recovery (FTX) systems with approved OVK certification.',
-    },
-    year: '2024',
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
-    stats: [
-      { label: { sv: 'Godkänd OVK', en: 'Inspection' }, value: '100%' },
-      { label: { sv: 'Totalentreprenad', en: 'Contract' }, value: 'Nyckelfärdigt' },
-      { label: { sv: 'Tidsplan', en: 'Schedule' }, value: 'I tid' },
-    ],
-  },
-  {
-    id: 'villa-nyproduktion-varmdo',
-    title: {
-      sv: 'Skärgårdsvilla – Nybyggnation, Snickeri & Totalentreprenad',
-      en: 'Archipelago Residence – Turnkey Construction & Carpentry',
-    },
-    location: 'Värmdö, Stockholms skärgård',
-    category: { sv: 'Byggentreprenad', en: 'Turnkey Construction' },
-    description: {
-      sv: 'Arkitektritad villa i modern skandinavisk stil. Stomresning, platsbyggt kök och snickerier, energieffektiv bergvärme med golvvärme och stora fönsterpartier.',
-      en: 'Architect-designed residence in modern Scandinavian style. Timber framing, bespoke cabinetry and carpentry, geothermal heating with underfloor loops, and high-efficiency triple glazing.',
-    },
-    year: '2023–2024',
-    image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
-    stats: [
-      { label: { sv: 'Boyta', en: 'Area' }, value: '260 m²' },
-      { label: { sv: 'Energiklass', en: 'Energy Class' }, value: 'A' },
-      { label: { sv: 'Entreprenadform', en: 'Contract Type' }, value: 'ABT 06' },
-    ],
-  },
-  {
-    id: 'fastighetsforvaltning-kungsholmen',
-    title: {
-      sv: 'Kommersiellt Fastighetsunderhåll & Teknisk Drift',
-      en: 'Commercial Facility Maintenance & Technical Operations',
-    },
-    location: 'Kungsholmen, Stockholm',
-    category: { sv: 'Fastighetsdrift', en: 'Facility Operations' },
-    description: {
-      sv: 'Löpande teknisk drift, felavhjälpande jour och planerat underhåll för kombinerad handels- och kontorsfastighet med 8 500 m² uthyrningsbar yta.',
-      en: 'Continuous facility operations, emergency response maintenance, and multi-year investment planning for a mixed commercial and retail complex of 8,500 m².',
-    },
-    year: 'Pågående',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-    stats: [
-      { label: { sv: 'Uthyrbar yta', en: 'Leasable Area' }, value: '8 500 m²' },
-      { label: { sv: 'Driftsäkerhet', en: 'Uptime' }, value: '99.8%' },
-    ],
   },
 ];

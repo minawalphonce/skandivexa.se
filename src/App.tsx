@@ -5,11 +5,11 @@ import { Hero } from './components/Hero';
 import { ServicesSection } from './components/ServicesSection';
 import { MaintenanceSpotlight } from './components/MaintenanceSpotlight';
 import { RotCalculator } from './components/RotCalculator';
-import { ProjectsGallery } from './components/ProjectsGallery';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
 
 export default function App() {
   // Swedish first by default as requested: "the website should be english and swedish (swedish first)"
@@ -17,6 +17,22 @@ export default function App() {
   const [isQuoteOpen, setIsQuoteOpen] = useState<boolean>(false);
   const [quoteService, setQuoteService] = useState<string | undefined>(undefined);
   const [quoteBudget, setQuoteBudget] = useState<number | undefined>(undefined);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState<boolean>(false);
+
+  // Any link to #integritetspolicy opens the privacy policy
+  useEffect(() => {
+    const syncHash = () => setIsPrivacyOpen(window.location.hash === '#integritetspolicy');
+    syncHash();
+    window.addEventListener('hashchange', syncHash);
+    return () => window.removeEventListener('hashchange', syncHash);
+  }, []);
+
+  const closePrivacy = () => {
+    setIsPrivacyOpen(false);
+    if (window.location.hash === '#integritetspolicy') {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
 
   // Sync document title and HTML lang attribute with active language for SEO
   useEffect(() => {
@@ -74,16 +90,10 @@ export default function App() {
           onApplyRotInQuote={handleApplyRotInQuote}
         />
 
-        {/* 5. Featured Projects & Case Studies */}
-        <ProjectsGallery
-          lang={lang}
-          onOpenQuote={(projectTitle) => handleOpenQuote(`Projekt liknande: ${projectTitle}`)}
-        />
-
-        {/* 6. About the Company & Official Bolagsverket Registration */}
+        {/* 5. About the Company & Official Bolagsverket Registration */}
         <AboutSection lang={lang} />
 
-        {/* 7. Contact, Callback & FAQ Section */}
+        {/* 6. Contact, Callback & FAQ Section */}
         <ContactSection
           lang={lang}
           onOpenQuote={() => handleOpenQuote()}
@@ -109,6 +119,9 @@ export default function App() {
         initialService={quoteService}
         initialBudget={quoteBudget}
       />
+
+      {/* Privacy Policy */}
+      <PrivacyPolicy isOpen={isPrivacyOpen} onClose={closePrivacy} lang={lang} />
     </div>
   );
 }

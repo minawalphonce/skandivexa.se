@@ -1,6 +1,6 @@
 import React from 'react';
 import { Language } from '../types';
-import { UI_TEXT } from '../data/content';
+import { UI_TEXT, COMPANY } from '../data/content';
 import { Logo } from './Logo';
 import { ShieldCheck, Award, HeartHandshake, Phone, Mail, MapPin } from 'lucide-react';
 
@@ -119,8 +119,8 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#D97D30] shrink-0" />
-                <a href="mailto:info@skandinavexa.se" className="hover:text-[#D97D30] transition-colors">
-                  info@skandinavexa.se
+                <a href="mailto:info@skandivexa.se" className="hover:text-[#D97D30] transition-colors">
+                  info@skandivexa.se
                 </a>
               </div>
             </div>
@@ -156,7 +156,10 @@ export const Footer: React.FC<FooterProps> = ({ lang, onLanguageChange, onOpenQu
         {/* Bottom Copyright & Legal note */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#94A3B8]">
           <p>
-            © {new Date().getFullYear()} Skandivexa konsult AB. {t.rights[lang]}
+            © {new Date().getFullYear()} Skandivexa konsult AB • Org.nr {COMPANY.orgNumber}. {t.rights[lang]}{' '}
+            <a href="#integritetspolicy" className="underline hover:text-[#D97D30] transition-colors">
+              {t.privacy[lang]}
+            </a>
           </p>
           <p className="text-[11px] text-center sm:text-right text-[#64748B]">
             {t.tagline[lang]}
