@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
-import { UI_TEXT } from '../data/content';
+import { UI_TEXT, COMPANY } from '../data/content';
+import { openMailto } from '../utils/mailto';
 import { Phone, Mail, MapPin, Clock, ShieldCheck, HelpCircle, ChevronDown, Send, Check } from 'lucide-react';
 
 interface ContactSectionProps {
@@ -61,6 +62,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
 
   const handleQuickContact = (e: React.FormEvent) => {
     e.preventDefault();
+    openMailto(`Bli uppringd – ${quickName}`, [
+      'Hej Skandivexa konsult AB,',
+      '',
+      'Jag vill bli uppringd.',
+      '',
+      `Namn: ${quickName}`,
+      `Telefon: ${quickPhone}`,
+      `Ärende: ${quickMsg}`,
+    ]);
     setQuickSent(true);
   };
 
@@ -113,7 +123,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
               {t.emailLabel[lang]}
             </span>
             <a
-              href="mailto:info@skandinavexa.se"
+              href="mailto:info@skandivexa.se"
               className="text-lg font-bold text-[#05172C] hover:text-[#C26E26] transition-colors block mb-2"
             >
               {t.emailVal}
@@ -136,7 +146,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
             </p>
             <div className="flex items-center gap-1.5 text-xs text-[#64748B]">
               <ShieldCheck className="w-3.5 h-3.5 text-[#C26E26]" />
-              <span>F-skatt • Moms • Svenskt AB</span>
+              <span>Org.nr {COMPANY.orgNumber} • F-skatt • Moms</span>
             </div>
           </div>
 
@@ -160,7 +170,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
               <div className="p-6 rounded-xl bg-[#F0FDF4] border border-emerald-200 text-center">
                 <Check className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
                 <span className="text-sm font-bold text-[#05172C] block">
-                  {lang === 'sv' ? 'Tack! Vi ringer upp dig inom kort.' : 'Thank you! We will call you back shortly.'}
+                  {lang === 'sv' ? 'Ett e-postmeddelande har öppnats i ditt e-postprogram – tryck på Skicka så ringer vi upp dig.' : 'An email has opened in your email program – press Send and we will call you back.'}
                 </span>
                 <span className="text-xs text-[#64748B] mt-1 block">
                   Skandivexa konsult AB • Stockholm
@@ -217,7 +227,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onOpenQuot
                     className="flex-1 py-3 px-4 rounded-lg bg-[#C26E26] hover:bg-[#A85B1B] text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    <span>{lang === 'sv' ? 'Bli uppringd' : 'Request Callback'}</span>
+                    <span>{lang === 'sv' ? 'Skapa e-post' : 'Create Email'}</span>
                   </button>
 
                   <button

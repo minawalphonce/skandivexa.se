@@ -27,7 +27,6 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, onOpenQu
     { href: '#tjanster', label: t.services[lang] },
     { href: '#underhall', label: t.maintenance[lang] },
     { href: '#rot-kalkylator', label: t.rot[lang] },
-    { href: '#referenser', label: t.projects[lang] },
     { href: '#om-bolaget', label: t.about[lang] },
     { href: '#kontakt', label: t.contact[lang] },
   ];
@@ -66,11 +65,11 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, onOpenQu
               <span>010-808 67 33</span>
             </a>
             <a
-              href="mailto:info@skandinavexa.se"
+              href="mailto:info@skandivexa.se"
               className="hidden lg:flex items-center gap-1 text-[#E2E8F0] hover:text-[#D97D30] transition-colors"
             >
               <Mail className="w-3 h-3 text-[#D97D30]" />
-              <span>info@skandinavexa.se</span>
+              <span>info@skandivexa.se</span>
             </a>
           </div>
 
